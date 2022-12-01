@@ -1,0 +1,36 @@
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Indicator Combination.exe.config
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Indicator Combination.exe
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Indicator Combination.pdb
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.Math.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.Neuro.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.Statistics.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Controls.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Genetic.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Imaging.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Math.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Neuro.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Video.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\BaseClasses.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\EPPlus.dll
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\BaseClasses.pdb
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.Math.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.Neuro.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.Statistics.pdb
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\Accord.Statistics.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Controls.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Genetic.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Imaging.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Math.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Neuro.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\AForge.Video.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\bin\Debug\EPPlus.xml
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\obj\x86\Debug\Indicator_Combination.From1.resources
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\obj\x86\Debug\Indicator_Combination.Properties.Resources.resources
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\obj\x86\Debug\Indicator Combination.csproj.GenerateResource.Cache
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\obj\x86\Debug\Indicator Combination.exe
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\obj\x86\Debug\Indicator Combination.pdb
+D:\DV\DataProcessing\AlgoTrading\OrderExecuter\Indicator Combination\obj\x86\Debug\Indicator Combination.csprojResolveAssemblyReference.cache

@@ -1,0 +1,328 @@
+﻿DECLARE @T1 TABLE (RN int, DEven int, HEven int, P decimal(20,4), PMin decimal(20,4), PMax decimal(20,4), Ret decimal(20,4))
+
+DECLARE @HMINUT9 INT
+DECLARE @HMINUT12 INT
+SET @HMINUT9 = (SELECT dbo.fn_HevenToMinutes(90000))
+SET @HMINUT12 = (SELECT dbo.fn_HevenToMinutes(120000))
+
+SELECT 
+	T.DEven
+	,T.HEven
+	,@InsCode InsCode
+	,T.PriceAvg
+	,(SELECT TOP 1 Y.[Return] FROM TseTrade.dbo.TsePriceCandles Y WHERE Y.InsCode = @InsCode AND Y.Periodicity = 10 AND ((Y.DEven= T.DEven AND Y.HEven> T.HEven) OR Y.DEven> T.DEven) ORDER BY Y.DEven, Y.HEven)*25.0 OD
+/*	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 1, T.DEven, T.HEven,1) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 1 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret11
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 1, T.DEven, T.HEven,2) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 1 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret12	
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 1, T.DEven, T.HEven,3) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 1 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret13	
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 1, T.DEven, T.HEven,4) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 1 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret14	
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 1, T.DEven, T.HEven,5) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 1 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret15	
+*/	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 10, T.DEven, T.HEven,1) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 10 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret101
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 10, T.DEven, T.HEven,2) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 10 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret102
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 10, T.DEven, T.HEven,3) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 10 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret103
+	/*,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 10, T.DEven, T.HEven,4) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 10 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret104
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 10, T.DEven, T.HEven,5) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 10 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret105	
+	*/,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 30, T.DEven, T.HEven,1) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 30 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret301
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 30, T.DEven, T.HEven,2) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 30 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret302
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 30, T.DEven, T.HEven,3) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 30 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret303
+	/*,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 30, T.DEven, T.HEven,4) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 30 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret304
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 30, T.DEven, T.HEven,5) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 30 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret305
+	*/,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 60, T.DEven, T.HEven,1) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 60 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret601	
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 60, T.DEven, T.HEven,2) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 60 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret602
+	,(SELECT Y.[Return] 
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 60, T.DEven, T.HEven,3) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 60 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret603
+	/*,(SELECT Y.[Return]
+		FROM TseTrade.dbo.TsePriceCandles Y
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 60, T.DEven, T.HEven,4) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 60 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret604
+	,(SELECT Y.[Return]
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 60, T.DEven, T.HEven,5) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 60 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret605
+	*/,(SELECT Y.[Return]
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 240, T.DEven, T.HEven,1) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 240 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret2405
+	,(SELECT Y.[Return]
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 240, T.DEven, T.HEven,2) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 240 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret2405
+	,(SELECT Y.[Return]
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 240, T.DEven, T.HEven,3) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 240 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret2405
+	/*,(SELECT Y.[Return]
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 240, T.DEven, T.HEven,4) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 240 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret2405
+	,(SELECT Y.[Return]
+		FROM TseTrade.dbo.TsePriceCandles Y 
+		JOIN TseTrade.dbo.fn_Max_RowCount_ToDEvenHEven(@InsCode, 240, T.DEven, T.HEven,5) W ON W.EDEven = T.DEven AND W.EHEven = T.HEven
+		WHERE Y.InsCode = @InsCode AND Y.Periodicity = 240 AND Y.DEven = W.DEven AND Y.HEven = W.HEven) Ret2405	
+	*/
+	--,2*S.TRSI1 - 1 RSI1
+	,2*S.TRSI10 - 1 RSI10
+	,2*S.TRSI30 - 1 RSI30
+	--,2*S.TRSI60 - 1 RSI60
+	--,2*S.TRSI240 - 1
+	
+	--,2*S.TStoch1 - 1 SO1
+	,2*S.TStoch10 - 1 SO10
+	,2*S.TStoch30 - 1 SO30
+	--,2*S.TStoch60 - 1 SO60
+	--,2*S.TStoch240 - 1
+	
+	--,2*S.TBB1 - 1 BB1
+	,2*S.TBB10 - 1 BB10
+	,2*S.TBB30 - 1 BB30
+	--,2*S.TBB60 - 1 BB60
+	--,2*S.TBB240 - 1
+	
+	,2.0*((dbo.fn_HevenToMinutes(S.HEven) - @HMINUT9)/(1.0*@HMINUT12 - 1.0*@HMINUT9)) - 1 DayTime	
+	,2.0*(CLN.PersianDay/31.0) - 1 DayMonth
+	,2.0*(CLN.DayOfWeekNumber/7.0) - 1 DayWeek
+	
+	--,S.TSgAll1	SAll1
+	,S.TSgAll10 SAll10
+	,S.TSgAll30 SAll30
+	--,S.TSgAll60 SAll60
+	--,S.TSgAll240
+	--,S.TSgMACD1 SMACD1
+	,S.TSgMACD10 SMACD10
+	,S.TSgMACD30 SMACD30
+	--,S.TSgMACD60 SMACD60
+	--,S.TSgMACD240
+	
+	--,S.TSgRSI1 SRSI1
+	,S.TSgRSI10 SRSI10
+	,S.TSgRSI30 SRSI30
+	--,S.TSgRSI60 SRSI60
+	--,S.TSgRSI240
+	
+	--,S.TSgStoch1 SSO1
+	,S.TSgStoch10 SSO10
+	,S.TSgStoch30 SSO30
+	--,S.TSgStoch60 SSO60
+	--,S.TSgStoch240
+	--,S.SgCCI
+	
+	--,S.TSgBB1 SBB1
+	,S.TSgBB10 SBB10
+	,S.TSgBB30 SBB30
+	--,S.TSgBB60 SBB60
+	--,S.TSgBB240	
+	--,S.TSgFr1 SFr1	
+	,S.TSgFr10 SFr10
+	,S.TSgFr30 SFr30
+	--,S.TSgFr60 SFr60
+	--,S.TSgFr240
+	--,S.TSgIch11
+	--,S.TSgIch12
+	--,S.TSgIch13
+	--,S.TSgIch14
+	,S.TSgIch101
+	,S.TSgIch102
+	,S.TSgIch103
+	,S.TSgIch104
+	,S.TSgIch301
+	,S.TSgIch302
+	,S.TSgIch303
+	,S.TSgIch304
+/*	,S.TSgIch601
+	,S.TSgIch602
+	,S.TSgIch603
+	,S.TSgIch604
+	,S.TSgIch2401
+	,S.TSgIch2402
+	,S.TSgIch2403
+	,S.TSgIch2404	
+	*/
+	
+	--,2.0*(CLN.PersianWeekOfYear/53.0) - 1 WeekYear		
+	--,2.0*((CLN.PersianWeekOfYear*7 + CLN.DayOfWeekNumber)/366.0) - 1 DayYear
+	--,2.0*((CLN.PersianYear - 1380.0)/(1400.0-1380.0)) - 1 YearN	
+	,(SELECT K.PMeDem FROM TseTrade.dbo.fn_AT_IND_BestLimits(@InsCode, T.DEven, T.HEven) K) PMeDem
+	,(SELECT K.PMeOf FROM TseTrade.dbo.fn_AT_IND_BestLimits(@InsCode, T.DEven, T.HEven) K) PMeOf
+	,(SELECT K.QTitMeDem FROM TseTrade.dbo.fn_AT_IND_BestLimits(@InsCode, T.DEven, T.HEven) K) QTitMeDem
+	,(SELECT K.QTitMeOf FROM TseTrade.dbo.fn_AT_IND_BestLimits(@InsCode, T.DEven, T.HEven) K) QTitMeOf 	
+FROM TseTrade.dbo.TsePriceCandles T
+JOIN (
+	SELECT SgAll10.DEven, SgAll10.HEven
+		--,(SgAll1.Buy - SgAll1.Sell) TSgAll1
+		,(SgAll10.Buy - SgAll10.Sell) TSgAll10
+		,(SgAll30.Buy - SgAll30.Sell) TSgAll30
+		--,(SgAll60.Buy - SgAll60.Sell) TSgAll60
+		--,(SgAll240.Buy - SgAll240.Sell) TSgAll240
+		--,((CASE WHEN SgMACD1.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgMACD1.Sell>0 THEN -1 ELSE 0 END)) TSgMACD1
+		,((CASE WHEN SgMACD10.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgMACD10.Sell>0 THEN -1 ELSE 0 END)) TSgMACD10
+		,((CASE WHEN SgMACD30.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgMACD30.Sell>0 THEN -1 ELSE 0 END)) TSgMACD30
+		--,((CASE WHEN SgMACD60.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgMACD60.Sell>0 THEN -1 ELSE 0 END)) TSgMACD60
+		--,((CASE WHEN SgMACD240.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgMACD240.Sell>0 THEN -1 ELSE 0 END)) TSgMACD240
+		--,(100.0 - RSI1.RSI)/(100.0) TRSI1
+		,(100.0 - RSI10.RSI)/(100.0) TRSI10
+		,(100.0 - RSI30.RSI)/(100.0) TRSI30
+		--,(100.0 - RSI60.RSI)/(100.0) TRSI60
+		--,(100.0 - RSI240.RSI)/(100.0) TRSI240
+		--,((CASE WHEN SgRSI1.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgRSI1.Sell>0 THEN -1 ELSE 0 END)) TSgRSI1
+		,((CASE WHEN SgRSI10.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgRSI10.Sell>0 THEN -1 ELSE 0 END)) TSgRSI10
+		,((CASE WHEN SgRSI30.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgRSI30.Sell>0 THEN -1 ELSE 0 END)) TSgRSI30
+		--,((CASE WHEN SgRSI60.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgRSI60.Sell>0 THEN -1 ELSE 0 END)) TSgRSI60
+		--,((CASE WHEN SgRSI240.Buy>0 THEN 1 ELSE 0 END) + (CASE WHEN SgRSI240.Sell>0 THEN -1 ELSE 0 END)) TSgRSI240
+		--,(T4.Buy - T4.Sell) SgCCI
+		--,(100.0 - Stoch1.K_stochastic)/(100.0) TStoch1
+		,(100.0 - Stoch10.K_stochastic)/(100.0) TStoch10
+		,(100.0 - Stoch30.K_stochastic)/(100.0) TStoch30
+		--,(100.0 - Stoch60.K_stochastic)/(100.0) TStoch60
+		--,(100.0 - Stoch240.K_stochastic)/(100.0) TStoch240
+		--,(SgStoch1.Buy - SgStoch1.Sell) TSgStoch1
+		,(SgStoch10.Buy - SgStoch10.Sell) TSgStoch10
+		,(SgStoch30.Buy - SgStoch30.Sell) TSgStoch30
+		--,(SgStoch60.Buy - SgStoch60.Sell) TSgStoch60
+		--,(SgStoch240.Buy - SgStoch240.Sell) TSgStoch240
+		--,CASE WHEN (BB1.UpperBand != BB1.LowerBand) THEN (BB1.UpperBand-BB1.CloseP)/(BB1.UpperBand - BB1.LowerBand) ELSE 0 END TBB1
+		,CASE WHEN (BB10.UpperBand != BB10.LowerBand) THEN (BB10.UpperBand-BB10.CloseP)/(BB10.UpperBand - BB10.LowerBand) ELSE 0 END TBB10
+		,CASE WHEN (BB30.UpperBand != BB30.LowerBand) THEN (BB30.UpperBand-BB30.CloseP)/(BB30.UpperBand - BB30.LowerBand) ELSE 0 END TBB30
+		--,CASE WHEN (BB60.UpperBand != BB60.LowerBand) THEN (BB60.UpperBand-BB60.CloseP)/(BB60.UpperBand - BB60.LowerBand) ELSE 0 END TBB60
+		--,CASE WHEN (BB240.UpperBand != BB240.LowerBand) THEN (BB240.UpperBand-BB1.CloseP)/(BB240.UpperBand - BB240.LowerBand) ELSE 0 END TBB240
+		--,(SgBB1.Buy - SgBB1.Sell) TSgBB1
+		,(SgBB10.Buy - SgBB10.Sell) TSgBB10
+		,(SgBB30.Buy - SgBB30.Sell) TSgBB30
+		--,(SgBB60.Buy - SgBB60.Sell) TSgBB60
+		--,(SgBB240.Buy - SgBB240.Sell) TSgBB240
+		--,(SgFr1.Buy - SgFr1.Sell) TSgFr1
+		,(SgFr10.Buy - SgFr10.Sell) TSgFr10
+		,(SgFr30.Buy - SgFr30.Sell) TSgFr30
+		--,(SgFr60.Buy - SgFr60.Sell) TSgFr60
+		--,(SgFr240.Buy - SgFr240.Sell) TSgFr240
+		--,(SgIch1.BUY_TEN_KIN - SgIch1.SELL_TEN_KIN) TSgIch11
+		--,(SgIch1.BUY_KIN - SgIch1.SELL_KIN) TSgIch12
+		--,(SgIch1.BUY_SENKO - SgIch1.SELL_SENKO) TSgIch13
+		--,(SgIch1.BUY_SPAN_ABR - SgIch1.SELL_SPAN_ABR) TSgIch14
+		,(SgIch10.BUY_TEN_KIN - SgIch10.SELL_TEN_KIN) TSgIch101
+		,(SgIch10.BUY_KIN - SgIch10.SELL_KIN) TSgIch102
+		,(SgIch10.BUY_SENKO - SgIch10.SELL_SENKO) TSgIch103
+		,(SgIch10.BUY_SPAN_ABR - SgIch10.SELL_SPAN_ABR) TSgIch104
+		,(SgIch30.BUY_TEN_KIN - SgIch30.SELL_TEN_KIN) TSgIch301
+		,(SgIch30.BUY_KIN - SgIch30.SELL_KIN) TSgIch302
+		,(SgIch30.BUY_SENKO - SgIch30.SELL_SENKO) TSgIch303
+		,(SgIch30.BUY_SPAN_ABR - SgIch30.SELL_SPAN_ABR) TSgIch304
+	/*	,(SgIch60.BUY_TEN_KIN - SgIch60.SELL_TEN_KIN) TSgIch601
+		,(SgIch60.BUY_KIN - SgIch60.SELL_KIN) TSgIch602
+		,(SgIch60.BUY_SENKO - SgIch60.SELL_SENKO) TSgIch603
+		,(SgIch60.BUY_SPAN_ABR - SgIch60.SELL_SPAN_ABR) TSgIch604
+		,(SgIch240.BUY_TEN_KIN - SgIch240.SELL_TEN_KIN) TSgIch2401
+		,(SgIch240.BUY_KIN - SgIch240.SELL_KIN) TSgIch2402
+		,(SgIch240.BUY_SENKO - SgIch240.SELL_SENKO) TSgIch2403
+		,(SgIch240.BUY_SPAN_ABR - SgIch240.SELL_SPAN_ABR) TSgIch2404 */
+		,SgAll10.PMeDem
+		,SgAll10.PMeOf
+		,SgAll10.QTitMeDem
+		,SgAll10.QTitMeOf
+	FROM TseTrade.dbo.fn_AT_IND_Alligator_SIGNALS(@InsCode,10,@SDEven,@SHEven, @EDEven, @EHEven, @MPeriod, 13,8,5,8,5,3,0.02) SgAll10
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_Alligator_SIGNALS(@InsCode,30,@SDEven,@SHEven, @EDEven, @EHEven, @MPeriod, 13,8,5,8,5,3,0.02) SgAll30 ON SgAll30.DEven = SgAll10.DEven AND SgAll30.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_Alligator_SIGNALS(@InsCode,60,@SDEven,@SHEven, @EDEven, @EHEven, @MPeriod, 13,8,5,8,5,3,0.02) SgAll60 ON SgAll60.DEven = SgAll10.DEven AND SgAll60.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIn TseTrade.dbo.fn_AT_IND_Alligator_SIGNALS(@InsCode,240,@SDEven,@SHEven, @EDEven, @EHEven, @MPeriod, 13,8,5,8,5,3,0.02) SgAll240 ON SgAll240.DEven = SgAll1.DEven AND SgAll240.HEven = SgAll1.HEven
+	--JOIN TseTrade.dbo.fn_AT_IND_MACD_SIGNALS(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod, 26,12,9) SgMACD1 ON SgMACD1.DEven = SgAll10.DEven AND SgMACD1.HEven = SgAll10.HEven
+	JOIN TseTrade.dbo.fn_AT_IND_MACD_SIGNALS(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod, 26,12,9) SgMACD10 ON SgMACD10.DEven = SgAll10.DEven AND SgMACD10.HEven = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_MACD_SIGNALS(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod, 26,12,9) SgMACD30 ON SgMACD30.DEven = SgAll10.DEven AND SgMACD30.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_MACD_SIGNALS(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod, 26,12,9) SgMACD60 ON SgMACD60.DEven = SgAll10.DEven AND SgMACD60.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIN TseTrade.dbo.fn_AT_IND_MACD_SIGNALS(@InsCode,240,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod, 26,12,9) SgMACD240 ON SgMACD240.DEven = SgAll1.DEven AND SgMACD240.HEven = SgAll1.HEven
+	--JOIN TseTrade.dbo.fn_AT_IND_RSI(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven,14) RSI1 ON RSI1.DEven = SgAll10.DEven AND RSI1.HEven = SgAll10.HEven
+	JOIN TseTrade.dbo.fn_AT_IND_RSI(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven,14) RSI10 ON RSI10.DEven = SgAll10.DEven AND RSI10.HEven = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_RSI(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven,14) RSI30 ON RSI30.DEven = SgAll10.DEven AND RSI30.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_RSI(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven,14) RSI60 ON RSI60.DEven = SgAll10.DEven AND RSI60.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIN TseTrade.dbo.fn_AT_IND_RSI(@InsCode,240,@SDEven, @SHEven, @EDEven, @EHEven,14) RSI240 ON RSI240.DEven = SgAll1.DEven AND RSI240.HEven = SgAll1.HEven
+	--JOIN TseTrade.dbo.fn_AT_IND_RSI_SIGNALS(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod,14, 70, 30) SgRSI1 ON SgRSI1.DEven = SgAll10.DEven AND SgRSI1.HEven = SgAll10.HEven
+	JOIN TseTrade.dbo.fn_AT_IND_RSI_SIGNALS(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod,14, 70, 30) SgRSI10 ON SgRSI10.DEven = SgAll10.DEven AND SgRSI10.HEven = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_RSI_SIGNALS(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod,14, 70, 30) SgRSI30 ON SgRSI30.DEven = SgAll10.DEven AND SgRSI30.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_RSI_SIGNALS(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod,14, 70, 30) SgRSI60 ON SgRSI60.DEven = SgAll10.DEven AND SgRSI60.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIN TseTrade.dbo.fn_AT_IND_RSI_SIGNALS(@InsCode,240,@SDEven, @SHEven, @EDEven, @EHEven, @MPeriod,14, 70, 30) SgRSI240 ON SgRSI240.DEven = SgAll1.DEven AND SgRSI240.HEven = SgAll1.HEven
+	--JOIN TseTrade.dbo.fn_AT_IND_CCI_SIGNALS(@InsCode,@Periodicity,@SDEven, @SHEven, @EDEven, @EHEven,20,100, -100, 0.015) T4 ON T4.DEven = T1.DEven AND T4.HEven = T1.HEven
+	--JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3) Stoch1 ON Stoch1.DEVEN = SgAll10.DEven AND Stoch1.HEVEN = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3) Stoch10 ON Stoch10.DEVEN = SgAll10.DEven AND Stoch10.HEVEN = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3) Stoch30 ON Stoch30.DEVEN = SgAll10.DEven AND Stoch30.HEVEN = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3) Stoch60 ON Stoch60.DEVEN = SgAll10.DEven AND Stoch60.HEVEN = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC(@InsCode,240,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3) Stoch240 ON Stoch240.DEVEN = SgAll1.DEven AND Stoch240.HEVEN = SgAll1.HEven	
+	--JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC_SIGNALS(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3,80,20) SgStoch1 ON SgStoch1.DEVEN = SgAll10.DEven AND SgStoch1.HEVEN = SgAll10.HEven
+	JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC_SIGNALS(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3,80,20) SgStoch10 ON SgStoch10.DEVEN = SgAll10.DEven AND SgStoch10.HEVEN = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC_SIGNALS(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3,80,20) SgStoch30 ON SgStoch30.DEVEN = SgAll10.DEven AND SgStoch30.HEVEN = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC_SIGNALS(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3,80,20) SgStoch60 ON SgStoch60.DEVEN = SgAll10.DEven AND SgStoch60.HEVEN = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIN TseTrade.dbo.fn_AT_IND_STOCHASTIC_SIGNALS(@InsCode,240,@SDEven, @SHEven, @EDEven, @EHEven,5,3,3,80,20) SgStoch240 ON SgStoch240.DEVEN = SgAll1.DEven AND SgStoch240.HEVEN = SgAll1.HEven	
+	--JOIN TseTrade.dbo.fn_AT_IND_BB(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven,20,2) BB1 ON BB1.DEven = SgAll10.DEven AND BB1.HEven = SgAll10.HEven
+	JOIN TseTrade.dbo.fn_AT_IND_BB(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven,20,2) BB10 ON BB10.DEven = SgAll10.DEven AND BB10.HEven = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_BB(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven,20,2) BB30 ON BB30.DEven = SgAll10.DEven AND BB30.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_BB(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven,20,2) BB60 ON BB60.DEven = SgAll10.DEven AND BB60.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIN TseTrade.dbo.fn_AT_IND_BB(@InsCode,240,@SDEven, @SHEven, @EDEven, @EHEven,20,2) BB240 ON BB240.DEven = SgAll1.DEven AND BB240.HEven = SgAll1.HEven	
+	--JOIN TseTrade.dbo.fn_AT_IND_BB_signals(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven,20,2) SgBB1 ON SgBB1.DEven = SgAll10.DEven AND SgBB1.HEven = SgAll10.HEven
+	JOIN TseTrade.dbo.fn_AT_IND_BB_signals(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven,20,2) SgBB10 ON SgBB10.DEven = SgAll10.DEven AND SgBB10.HEven = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_BB_signals(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven,20,2) SgBB30 ON SgBB30.DEven = SgAll10.DEven AND SgBB30.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_BB_signals(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven,20,2) SgBB60 ON SgBB60.DEven = SgAll10.DEven AND SgBB60.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIN TseTrade.dbo.fn_AT_IND_BB_signals(@InsCode,240,@SDEven, @SHEven, @EDEven, @EHEven,20,2) SgBB240 ON SgBB240.DEven = SgAll1.DEven AND SgBB240.HEven = SgAll1.HEven
+	--JOIN TseTrade.dbo.fn_AT_IND_Fractal_SIGNALS(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven) SgFr1 ON SgFr1.DEven = SgAll10.DEven AND SgFr1.HEven = SgAll10.HEven
+	JOIN TseTrade.dbo.fn_AT_IND_Fractal_SIGNALS(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven) SgFr10 ON SgFr10.DEven = SgAll10.DEven AND SgFr10.HEven = SgAll10.HEven
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_Fractal_SIGNALS(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven) SgFr30 ON SgFr30.DEven = SgAll10.DEven AND SgFr30.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_Fractal_SIGNALS(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven) SgFr60 ON SgFr60.DEven = SgAll10.DEven AND SgFr60.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+	--JOIN TseTrade.dbo.fn_AT_IND_Fractal_SIGNALS(@InsCode,240,@SDEven, @SHEven, @EDEven, @EHEven) SgFr240 ON SgFr240.DEven = SgAll1.DEven AND SgFr240.HEven = SgAll1.HEven	
+	--JOIN TseTrade.dbo.fn_AT_IND_Ichimoku_SIGNAL(@InsCode,1,@SDEven, @SHEven, @EDEven, @EHEven, 3, 26, 52, 9, 26, 26) SgIch1 ON SgIch1.DEven = SgAll10.DEven AND SgIch1.HEven = SgAll10.HEven	
+	JOIN TseTrade.dbo.fn_AT_IND_Ichimoku_SIGNAL(@InsCode,10,@SDEven, @SHEven, @EDEven, @EHEven, 3, 26, 52, 9, 26, 26) SgIch10 ON SgIch10.DEven = SgAll10.DEven AND SgIch10.HEven = SgAll10.HEven	
+	LEFT JOIN TseTrade.dbo.fn_AT_IND_Ichimoku_SIGNAL(@InsCode,30,@SDEven, @SHEven, @EDEven, @EHEven, 3, 26, 52, 9, 26, 26) SgIch30 ON SgIch30.DEven = SgAll10.DEven AND SgIch30.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/30)*30)	
+	--LEFT JOIN TseTrade.dbo.fn_AT_IND_Ichimoku_SIGNAL(@InsCode,60,@SDEven, @SHEven, @EDEven, @EHEven, 3, 26, 52, 9, 26, 26) SgIch60 ON SgIch60.DEven = SgAll10.DEven AND SgIch60.HEven = dbo.fn_MinutesToHEven(FLOOR(dbo.fn_HevenToMinutes(SgAll10.HEven)/60)*60)
+/*	JOIN TseTrade.dbo.fn_AT_IND_Ichimoku_SIGNAL(@InsCode,@Periodicity,@SDEven, @SHEven, @EDEven, @EHEven, 3, 26, 52, 9, 26, 26) SgIch240 ON SgIch240.DEven = SgAll1.DEven AND SgIch240.HEven = SgAll1.HEven	
+*/
+) S ON S.DEven = T.DEven AND S.HEven = T.HEven
+JOIN AdjPrice.dbo.Calendar CLN ON CLN.DEven = T.DEven
+WHERE T.InsCode = @InsCode AND T.Periodicity = 10 AND ((T.DEven=@EDEven AND T.HEven<=@EHEven) OR (T.DEven<@EDEven)) AND ((T.DEven=@SDEven AND T.HEven>=@SHEven) OR (T.DEven>@SDEven))
+ORDER BY T.DEven, T.HEven
+
